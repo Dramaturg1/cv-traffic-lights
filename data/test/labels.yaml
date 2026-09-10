@@ -1,0 +1,504 @@
+24068.png:
+- label: Green
+  occluded: false
+  x_max: 752.25
+  x_min: 749.0
+  y_max: 355.125
+  y_min: 345.125
+24070.png:
+- label: Green
+  occluded: false
+  x_max: 752.625
+  x_min: 748.875
+  y_max: 354.25
+  y_min: 343.375
+24072.png:
+- label: Green
+  occluded: false
+  x_max: 753.875
+  x_min: 750.0
+  y_max: 355.625
+  y_min: 346.375
+24074.png:
+- label: Green
+  occluded: false
+  x_max: 754.5
+  x_min: 750.875
+  y_max: 359.375
+  y_min: 349.25
+24076.png:
+- label: Green
+  occluded: false
+  x_max: 754.75
+  x_min: 751.0
+  y_max: 361.875
+  y_min: 351.5
+24078.png:
+- label: Green
+  occluded: false
+  x_max: 755.625
+  x_min: 751.375
+  y_max: 363.375
+  y_min: 353.0
+24080.png:
+- label: Green
+  occluded: false
+  x_max: 755.5
+  x_min: 752.375
+  y_max: 363.0
+  y_min: 353.875
+24082.png:
+- label: Green
+  occluded: false
+  x_max: 755.625
+  x_min: 752.375
+  y_max: 364.125
+  y_min: 354.5
+24084.png:
+- label: Green
+  occluded: false
+  x_max: 755.75
+  x_min: 752.0
+  y_max: 364.625
+  y_min: 355.0
+24086.png:
+- label: Green
+  occluded: false
+  x_max: 756.0
+  x_min: 752.25
+  y_max: 366.625
+  y_min: 356.875
+24088.png:
+- label: Green
+  occluded: false
+  x_max: 755.875
+  x_min: 752.625
+  y_max: 367.25
+  y_min: 358.0
+24090.png:
+- label: Green
+  occluded: false
+  x_max: 756.375
+  x_min: 753.0
+  y_max: 366.75
+  y_min: 357.625
+24092.png:
+- label: Green
+  occluded: false
+  x_max: 756.625
+  x_min: 753.0
+  y_max: 365.0
+  y_min: 355.875
+24094.png:
+- label: Green
+  occluded: false
+  x_max: 756.75
+  x_min: 753.5
+  y_max: 364.5
+  y_min: 355.75
+24098.png:
+- label: Green
+  occluded: true
+  x_max: 756.5
+  x_min: 753.25
+  y_max: 361.875
+  y_min: 354.125
+24100.png:
+- label: Green
+  occluded: true
+  x_max: 757.5
+  x_min: 753.625
+  y_max: 362.625
+  y_min: 353.75
+24534.png:
+- label: 'off'
+  occluded: false
+  x_max: 451.625
+  x_min: 447.625
+  y_max: 437.875
+  y_min: 425.625
+24536.png:
+- label: 'off'
+  occluded: false
+  x_max: 450.5
+  x_min: 447.125
+  y_max: 437.0
+  y_min: 425.25
+24538.png:
+- label: 'off'
+  occluded: false
+  x_max: 450.0
+  x_min: 446.5
+  y_max: 433.875
+  y_min: 421.75
+24540.png:
+- label: 'off'
+  occluded: false
+  x_max: 449.875
+  x_min: 446.0
+  y_max: 431.375
+  y_min: 419.25
+24542.png:
+- label: 'off'
+  occluded: false
+  x_max: 449.5
+  x_min: 445.5
+  y_max: 429.875
+  y_min: 417.25
+24544.png:
+- label: 'off'
+  occluded: false
+  x_max: 448.125
+  x_min: 444.875
+  y_max: 430.0
+  y_min: 418.0
+24546.png:
+- label: 'off'
+  occluded: false
+  x_max: 448.75
+  x_min: 444.375
+  y_max: 430.0
+  y_min: 417.25
+24548.png:
+- label: 'off'
+  occluded: false
+  x_max: 448.375
+  x_min: 443.75
+  y_max: 430.0
+  y_min: 417.25
+24550.png:
+- label: 'off'
+  occluded: false
+  x_max: 448.125
+  x_min: 443.25
+  y_max: 430.625
+  y_min: 417.375
+24552.png:
+- label: 'off'
+  occluded: false
+  x_max: 447.125
+  x_min: 442.5
+  y_max: 430.0
+  y_min: 417.25
+24554.png:
+- label: 'off'
+  occluded: false
+  x_max: 446.875
+  x_min: 442.875
+  y_max: 430.0
+  y_min: 416.625
+24556.png:
+- label: 'off'
+  occluded: false
+  x_max: 447.125
+  x_min: 441.5
+  y_max: 429.125
+  y_min: 415.5
+24558.png:
+- label: 'off'
+  occluded: false
+  x_max: 445.75
+  x_min: 441.625
+  y_max: 428.75
+  y_min: 415.125
+24560.png:
+- label: 'off'
+  occluded: false
+  x_max: 445.25
+  x_min: 440.875
+  y_max: 427.75
+  y_min: 414.625
+24562.png:
+- label: 'off'
+  occluded: false
+  x_max: 444.75
+  x_min: 440.5
+  y_max: 426.25
+  y_min: 412.875
+24564.png:
+- label: 'off'
+  occluded: false
+  x_max: 444.125
+  x_min: 440.125
+  y_max: 425.625
+  y_min: 410.875
+24566.png:
+- label: 'off'
+  occluded: false
+  x_max: 443.875
+  x_min: 439.0
+  y_max: 423.75
+  y_min: 409.25
+24568.png:
+- label: 'off'
+  occluded: false
+  x_max: 442.625
+  x_min: 438.5
+  y_max: 423.875
+  y_min: 409.5
+24570.png:
+- label: 'off'
+  occluded: false
+  x_max: 441.875
+  x_min: 437.875
+  y_max: 425.75
+  y_min: 411.25
+24572.png:
+- label: 'off'
+  occluded: false
+  x_max: 441.75
+  x_min: 437.875
+  y_max: 427.75
+  y_min: 414.375
+24574.png:
+- label: 'off'
+  occluded: false
+  x_max: 442.0
+  x_min: 438.125
+  y_max: 430.25
+  y_min: 416.0
+24576.png:
+- label: 'off'
+  occluded: false
+  x_max: 440.875
+  x_min: 436.75
+  y_max: 432.125
+  y_min: 417.75
+24578.png:
+- label: 'off'
+  occluded: false
+  x_max: 440.5
+  x_min: 436.5
+  y_max: 433.25
+  y_min: 419.125
+24580.png:
+- label: 'off'
+  occluded: false
+  x_max: 440.5
+  x_min: 436.0
+  y_max: 433.25
+  y_min: 418.375
+24582.png:
+- label: 'off'
+  occluded: false
+  x_max: 440.0
+  x_min: 435.5
+  y_max: 432.25
+  y_min: 418.125
+24584.png:
+- label: 'off'
+  occluded: false
+  x_max: 439.125
+  x_min: 435.125
+  y_max: 431.875
+  y_min: 419.125
+24586.png:
+- label: 'off'
+  occluded: false
+  x_max: 438.5
+  x_min: 434.25
+  y_max: 432.5
+  y_min: 419.25
+24588.png:
+- label: 'off'
+  occluded: false
+  x_max: 438.25
+  x_min: 434.125
+  y_max: 432.125
+  y_min: 419.25
+24590.png:
+- label: 'off'
+  occluded: false
+  x_max: 437.625
+  x_min: 433.5
+  y_max: 432.75
+  y_min: 419.625
+24592.png:
+- label: 'off'
+  occluded: false
+  x_max: 437.25
+  x_min: 433.125
+  y_max: 433.875
+  y_min: 420.625
+24594.png:
+- label: 'off'
+  occluded: false
+  x_max: 436.5
+  x_min: 432.25
+  y_max: 435.0
+  y_min: 421.5
+24596.png:
+- label: 'off'
+  occluded: false
+  x_max: 436.125
+  x_min: 432.0
+  y_max: 434.875
+  y_min: 421.0
+24598.png:
+- label: 'off'
+  occluded: false
+  x_max: 435.125
+  x_min: 431.0
+  y_max: 433.25
+  y_min: 420.0
+24600.png:
+- label: 'off'
+  occluded: false
+  x_max: 434.625
+  x_min: 430.625
+  y_max: 437.125
+  y_min: 424.625
+24602.png:
+- label: 'off'
+  occluded: false
+  x_max: 435.0
+  x_min: 430.25
+  y_max: 439.0
+  y_min: 425.125
+24604.png:
+- label: 'off'
+  occluded: false
+  x_max: 434.0
+  x_min: 429.0
+  y_max: 438.5
+  y_min: 424.125
+24606.png:
+- label: 'off'
+  occluded: false
+  x_max: 433.25
+  x_min: 428.5
+  y_max: 435.375
+  y_min: 421.875
+24608.png:
+- label: 'off'
+  occluded: false
+  x_max: 432.625
+  x_min: 428.0
+  y_max: 432.875
+  y_min: 419.0
+24610.png:
+- label: 'off'
+  occluded: false
+  x_max: 431.375
+  x_min: 427.0
+  y_max: 431.0
+  y_min: 416.875
+24612.png:
+- label: 'off'
+  occluded: false
+  x_max: 430.25
+  x_min: 426.0
+  y_max: 429.375
+  y_min: 415.5
+24614.png:
+- label: 'off'
+  occluded: false
+  x_max: 429.625
+  x_min: 425.125
+  y_max: 429.625
+  y_min: 415.5
+24616.png:
+- label: 'off'
+  occluded: false
+  x_max: 428.875
+  x_min: 424.5
+  y_max: 429.5
+  y_min: 416.25
+24618.png:
+- label: 'off'
+  occluded: false
+  x_max: 427.5
+  x_min: 424.125
+  y_max: 429.25
+  y_min: 415.875
+24620.png:
+- label: 'off'
+  occluded: false
+  x_max: 427.125
+  x_min: 423.125
+  y_max: 428.25
+  y_min: 414.5
+24622.png:
+- label: 'off'
+  occluded: false
+  x_max: 426.25
+  x_min: 421.75
+  y_max: 427.0
+  y_min: 413.5
+24624.png:
+- label: 'off'
+  occluded: false
+  x_max: 425.125
+  x_min: 421.25
+  y_max: 426.375
+  y_min: 412.75
+24626.png:
+- label: 'off'
+  occluded: false
+  x_max: 424.5
+  x_min: 420.0
+  y_max: 424.125
+  y_min: 410.25
+24628.png:
+- label: 'off'
+  occluded: false
+  x_max: 424.0
+  x_min: 419.0
+  y_max: 425.125
+  y_min: 411.25
+24630.png:
+- label: 'off'
+  occluded: false
+  x_max: 422.625
+  x_min: 417.875
+  y_max: 429.25
+  y_min: 415.625
+24632.png:
+- label: 'off'
+  occluded: false
+  x_max: 421.75
+  x_min: 417.5
+  y_max: 431.75
+  y_min: 417.25
+24634.png:
+- label: 'off'
+  occluded: false
+  x_max: 420.75
+  x_min: 416.75
+  y_max: 428.5
+  y_min: 415.0
+24636.png:
+- label: 'off'
+  occluded: false
+  x_max: 420.75
+  x_min: 416.0
+  y_max: 427.0
+  y_min: 412.875
+24638.png:
+- label: 'off'
+  occluded: false
+  x_max: 418.875
+  x_min: 415.375
+  y_max: 424.375
+  y_min: 410.625
+24640.png:
+- label: 'off'
+  occluded: false
+  x_max: 418.75
+  x_min: 414.0
+  y_max: 423.875
+  y_min: 409.625
+24642.png:
+- label: 'off'
+  occluded: false
+  x_max: 417.75
+  x_min: 413.75
+  y_max: 423.0
+  y_min: 408.75
+24644.png:
+- label: 'off'
+  occluded: false
+  x_max: 417.375
+  x_min: 412.75
+  y_max: 423.25
+  y_min: 408.5
