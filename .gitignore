@@ -12,7 +12,4 @@ __pycache__/
 result.png
 result.jpg
 histogram_*.png
-*.png
-*.jpg
-
 .ipynb_checkpoints/
