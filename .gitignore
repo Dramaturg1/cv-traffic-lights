@@ -11,5 +11,7 @@ __pycache__/
 .idea/
 result.png
 result.jpg
+frame*.png
+hist*.png
 histogram_*.png
 .ipynb_checkpoints/
