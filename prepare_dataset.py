@@ -2,16 +2,20 @@ import yaml
 import os
 import random
 import shutil
+import cv2
+import numpy as np
 from collections import defaultdict
 
 TRAIN = 'dataset_train_rgb/rgb/train'
 TEST = 'dataset_test_rgb/rgb/test'
 SEED = 20260827
 
+
 def load_annotations(yaml_path):
     with open(yaml_path, 'r') as f:
         data = yaml.safe_load(f)
     return data
+
 
 def gather_paths(annotations):
     sequences = defaultdict(list)
@@ -21,6 +25,7 @@ def gather_paths(annotations):
             seq_name = parts[-2]
             sequences[seq_name].append(parts[-1])
     return dict(sequences)
+
 
 def check_intersections(dict1, dict2):
     files1 = set()
@@ -45,6 +50,7 @@ def check_intersections(dict1, dict2):
         if filtered_files:
             new_dict2[key] = filtered_files
     return new_dict1, new_dict2
+
 
 def stats(dict):
     for key, value in dict.items():
@@ -176,11 +182,69 @@ def make_subsets(train, test, output_root='data'):
     print(f"Validation: {val_count} кадров")
     print(f"Test: {test_count} кадров")
 
+    # --- Аудит: подтверждаем отсутствие пересечений между частями ---
+    tune_set, val_set, test_set = set(tune_files), set(val_files), set(test_files)
+    inter_tv = tune_set & val_set
+    inter_tt = tune_set & test_set
+    inter_vt = val_set & test_set
+    print("\n=== АУДИТ РАЗДЕЛЕНИЯ ===")
+    print(f"tune={len(tune_set)} (ожидалось 120), "
+          f"validation={len(val_set)} (ожидалось 48), "
+          f"test={len(test_set)} (ожидалось 72)")
+    print(f"Пересечения tune∩validation={len(inter_tv)}, "
+          f"tune∩test={len(inter_tt)}, validation∩test={len(inter_vt)}")
+    assert len(tune_set) == 120 and len(val_set) == 48 and len(test_set) == 72, \
+        "Размеры подвыборок не совпадают с протоколом (120/48/72)"
+    assert not inter_tv and not inter_tt and not inter_vt, \
+        "Обнаружено пересечение кадров между частями — утечка данных!"
+    print("Аудит пройден: размеры верны, пересечений нет.")
+
     return {
         'tune': tune_files,
         'validation': val_files,
         'test': test_files
     }
+
+def compute_exposure_tag(img_bgr):
+    hsv = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2HSV)
+    v = hsv[:, :, 2].astype(np.float32)
+
+    mean_v = float(v.mean())
+    p05 = float(np.percentile(v, 5))
+    p95 = float(np.percentile(v, 95))
+    dynamic_range = p95 - p05
+    bright_fraction = float((v > 240).mean())
+
+    if mean_v < 60:
+        return 'low'
+    if dynamic_range > 180 and bright_fraction > 0.01 and mean_v < 130:
+        return 'backlit'
+    return 'normal'
+
+
+def assign_exposure_tags(dataset_type, output_root='data'):
+    images_dir = os.path.join(output_root, dataset_type, 'images')
+    tags = {}
+    counts = defaultdict(int)
+    for filename in sorted(os.listdir(images_dir)):
+        img = cv2.imread(os.path.join(images_dir, filename))
+        if img is None:
+            continue
+        tag = compute_exposure_tag(img)
+        tags[filename] = tag
+        counts[tag] += 1
+
+    with open(os.path.join(output_root, dataset_type, 'exposure_tags.yaml'), 'w') as f:
+        yaml.dump(tags, f, allow_unicode=True)
+
+    print(f"[{dataset_type}] теги экспозиции: "
+          f"normal={counts['normal']}, low={counts['low']}, backlit={counts['backlit']}")
+    if counts['low'] == 0 or counts['backlit'] == 0:
+        print(f"[{dataset_type}] ВНИМАНИЕ: тег пуст для одного из классов — "
+              f"по методичке нельзя выдумывать условие, нужно явно указать, "
+              f"что подходящих кадров в этой части не нашлось.")
+    return tags
+
 
 if __name__ == "__main__":
     train_annotations = load_annotations('dataset_train_rgb/train.yaml')
@@ -192,3 +256,5 @@ if __name__ == "__main__":
     new_train, new_test = check_intersections(sequences_train, sequences_test)
     make_subsets(new_train, new_test)
 
+    for split in ('tune', 'validation', 'test'):
+        assign_exposure_tags(split)

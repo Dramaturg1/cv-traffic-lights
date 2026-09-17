@@ -1,6 +1,8 @@
-from color_masks import *
 from collections import Counter
 from prepare_dataset import load_annotations
+from color_masks import process_one_ROI, DEFAULT_FIXED_THRESHOLD
+import cv2
+
 
 def normalize_label(label):
     label = label.lower()
@@ -15,7 +17,8 @@ def normalize_label(label):
     else:
         return label
 
-def gather_metrics(type):
+
+def gather_metrics(type, method='fixed', fixed_threshold=DEFAULT_FIXED_THRESHOLD):
     annotations = load_annotations(f'./data/{type}/labels.yaml')
     total, correct = 0, 0
     errors = []
@@ -27,18 +30,20 @@ def gather_metrics(type):
         for box in annotations[key]:
             if box['occluded'] == True:
                 continue
-            result = process_one_ROI(img, box)
+            result = process_one_ROI(img, box, method=method, fixed_threshold=fixed_threshold)
+            if result is None:
+                continue
             true_label = normalize_label(box['label'])
             predicted = result['prediction']
 
             total += 1
             if predicted == true_label:
-                    correct += 1
+                correct += 1
             else:
                 errors.append((key, true_label, predicted, result['rates']))
 
     accuracy = correct / total if total > 0 else 0
-    print(f'Правильно: {correct} / {total} = {accuracy:.2%}')
+    print(f'[{type}/{method}] Правильно: {correct} / {total} = {accuracy:.2%}')
 
     return errors, accuracy
 
@@ -56,28 +61,19 @@ def confusion_matrix(errors):
 
 def print_confusion_matrix(matrix):
     classes = ['red', 'yellow', 'green', 'off']
-
+    header = " " * 12 + "".join(f"{c:>8}" for c in classes)
     print("\n" + "=" * 50)
     print("CONFUSION MATRIX")
     print("=" * 50)
-
-    header = " " * 12
-    for c in classes:
-        header += f"{c:>8}"
     print(header)
     print("-" * 50)
-
     for true in classes:
-        row = f"{true:>8} |"
-        for pred in classes:
-            row += f"{matrix[true][pred]:>8}"
+        row = f"{true:>8} |" + "".join(f"{matrix[true][pred]:>8}" for pred in classes)
         print(row)
-
     print("=" * 50)
 
 
 def print_error_summary(errors):
-    from collections import Counter
     error_types = Counter()
     for _, true_label, predicted, _ in errors:
         if true_label != predicted:
@@ -89,10 +85,11 @@ def print_error_summary(errors):
     for (true, pred), count in error_types.most_common(10):
         print(f"{true} -> {pred}: {count}")
 
+
 if __name__ == "__main__":
-    print('tune')
-    errors, accuracy = gather_metrics('tune')
-    print('validation')
-    errors, accuracy = gather_metrics('validation')
-    print('test')
-    errors, accuracy = gather_metrics('test')
+    for split in ('tune', 'validation', 'test'):
+        print(f"\n### {split} ###")
+        for method in ('fixed', 'otsu'):
+            errors, accuracy_val = gather_metrics(split, method=method)
+            print_error_summary(errors)
+            print_confusion_matrix(confusion_matrix(errors))

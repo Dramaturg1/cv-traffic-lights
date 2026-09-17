@@ -3,46 +3,75 @@ import numpy as np
 import matplotlib.pyplot as plt
 from prepare_dataset import load_annotations
 
-annotations = load_annotations('./data/tune/labels.yaml')
+EXPOSURE_LABELS_RU = {
+    'normal': 'дневной (обычная экспозиция)',
+    'low': 'тёмный (низкая экспозиция)',
+    'backlit': 'контровой свет',
+}
 
 
-def plot_histograms(img, box, filename):
-    y_min = int(box['y_min'])
-    y_max = int(box['y_max'])
-    x_min = int(box['x_min'])
-    x_max = int(box['x_max'])
+def _first_frame_with_tag(annotations, tags, tag):
+    for filename, boxes in annotations.items():
+        if tags.get(filename) != tag:
+            continue
+        for box in boxes:
+            if not box['occluded']:
+                return filename, box
+    return None, None
 
-    roi = img[y_min:y_max, x_min:x_max]
 
-    hsv_full = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+def _hist_v(values):
+    hist = cv2.calcHist([values], [0], None, [256], [0, 256])
+    hist = hist / hist.sum()
+    return hist
 
-    v_full = hsv_full[:, :, 2]
-    v_roi = hsv_roi[:, :, 2]
 
-    hist_full = cv2.calcHist([v_full], [0], None, [256], [0, 256])
-    hist_roi = cv2.calcHist([v_roi], [0], None, [256], [0, 256])
+def normalized_histograms(dataset='tune', images_dir=None, save_prefix='histogram'):
+    images_dir = images_dir or f'./data/{dataset}/images'
+    annotations = load_annotations(f'./data/{dataset}/labels.yaml')
+    tags = load_annotations(f'./data/{dataset}/exposure_tags.yaml')
 
-    hist_full = hist_full / hist_full.sum()
-    hist_roi = hist_roi / hist_roi.sum()
+    picks = {}
+    for tag in ('normal', 'low', 'backlit'):
+        filename, box = _first_frame_with_tag(annotations, tags, tag)
+        if filename is None:
+            print(f"[normalized_histograms] Кадров с тегом '{tag}' в '{dataset}' не найдено ")
+            continue
+        picks[tag] = (filename, box)
 
-    plt.figure(figsize=(10, 5))
-    plt.plot(hist_full, color='blue', label='Полный кадр')
-    plt.plot(hist_roi, color='red', label='ROI (светофор)')
-    plt.xlabel('Яроксть (V)')
-    plt.ylabel('Нормированная частота')
-    plt.title(f'Гистограмма: {filename} (label={box["label"]})')
-    plt.legend()
-    plt.grid(True)
+    fig, axes = plt.subplots(len(picks), 1, figsize=(9, 4 * max(len(picks), 1)), squeeze=False)
+
+    for i, (tag, (filename, box)) in enumerate(picks.items()):
+        img = cv2.imread(f'{images_dir}/{filename}')
+        y_min, y_max = int(box['y_min']), int(box['y_max'])
+        x_min, x_max = int(box['x_min']), int(box['x_max'])
+        roi = img[y_min:y_max, x_min:x_max]
+
+        v_full = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)[:, :, 2]
+        v_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)[:, :, 2]
+
+        hist_full = _hist_v(v_full)
+        hist_roi = _hist_v(v_roi)
+
+        ax = axes[i, 0]
+        ax.plot(hist_full, color='blue', label='Полный кадр')
+        ax.plot(hist_roi, color='red', label='ROI (светофор)')
+        ax.set_xlim(0, 255)
+        ax.set_ylim(0, 0.25)
+        ax.set_xlabel('Яркость (V)')
+        ax.set_ylabel('Нормированная частота')
+        ax.set_title(f'{EXPOSURE_LABELS_RU[tag]}: {filename} (label={box["label"]})')
+        ax.legend()
+        ax.grid(True)
+
     plt.tight_layout()
-    plt.savefig(f'histogram_{filename}', dpi=100)
-    plt.show()
+    out_path = f'{save_prefix}_{dataset}.png'
+    plt.savefig(out_path, dpi=100)
+    plt.close(fig)
+    print(f"Сохранено: {out_path}")
+
+    return picks
 
 
-filename = list(annotations.keys())[2]
-img = cv2.imread(f'./data/tune/images/{filename}')
-
-for box in annotations[filename]:
-    if box['occluded'] == False:
-        plot_histograms(img, box, filename)
-        break
+if __name__ == "__main__":
+    normalized_histograms('tune')
